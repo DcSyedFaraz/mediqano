@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
@@ -25,7 +26,8 @@ Route::middleware('auth')->group(function () {
 
 
 // Admin routes
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/excelss', [ProductController::class, 'index'])->name('excel');
     Route::resource('users', UserController::class);
 });

@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Imports\ProductImport;
 use Illuminate\Console\Command;
+use Maatwebsite\Excel\Excel;
 
 class ExcelImport extends Command
 {
@@ -11,20 +13,20 @@ class ExcelImport extends Command
      *
      * @var string
      */
-    protected $signature = 'app:excel-import';
+    protected $signature = 'import:excel';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Laravel Excel importer';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
-        //
+        $this->output->title('Starting import');
+        $file = public_path('excel/PreislisteTest.xlsx');
+        (new ProductImport)->withOutput($this->output)->import($file);
+        $this->output->success('Import successful');
     }
 }
