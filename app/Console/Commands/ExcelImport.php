@@ -25,7 +25,7 @@ class ExcelImport extends Command
     public function handle()
     {
         $this->output->title('Starting import');
-        $file = public_path('excel/PreislisteTest.xlsx');
+        $file = public_path('excel/Preisliste.xlsx');
         (new ProductImport)->withOutput($this->output)->import($file);
         $this->output->success('Import successful');
     }

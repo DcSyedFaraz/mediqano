@@ -28,6 +28,6 @@ Route::middleware('auth')->group(function () {
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    Route::get('/excelss', [ProductController::class, 'index'])->name('excel');
+    Route::resource('products', ProductController::class)->only(['index', 'show']);
     Route::resource('users', UserController::class);
 });

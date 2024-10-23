@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ProductImport;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 
@@ -18,12 +19,25 @@ class ProductController extends Controller
 
     public function index()
     {
-        // Define the file path
-        $file = public_path('excel/PreislisteTest.xlsx');
+        // Fetch all products, consider adding pagination
+        $products = Product::paginate(10);
 
-        // Import the file using the non-static method
-        $this->excel->import(new ProductImport, $file);
+        // Return the index view with products data
+        return view('products.index', compact('products'));
+    }
 
-        return redirect()->route('dashboard')->with('success', 'Excel file imported successfully!');
+    /**
+     * Display the specified product.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        // Find the product by ID or fail with 404
+        $product = Product::findOrFail($id);
+
+        // Return the show view with product data
+        return view('products.show', compact('product'));
     }
 }
