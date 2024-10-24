@@ -16,10 +16,10 @@ class ProductController extends Controller
     {
         // Fetch all products, you might want to paginate in a real-world scenario
         // $products = Product::all();
-        $products = Product::limit(10)->get();
+        $products = Product::paginate(10);
 
         // Return collection of products as resource
-        return ProductResource::collection($products)->collection;
+        return ProductResource::collection($products);
     }
 
     /**

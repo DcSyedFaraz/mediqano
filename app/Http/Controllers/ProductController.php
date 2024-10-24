@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\ProductImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
 
 class ProductController extends Controller
 {
-    protected $excel;
 
-    // Inject Excel into the constructor
-    public function __construct(Excel $excel)
-    {
-        $this->excel = $excel;
-    }
 
     public function index()
     {
         // Fetch all products, consider adding pagination
-        $products = Product::paginate(10);
+        $products = Product::select('id','article_number','article_description_1','sales_price','retail_price','custom_article_number')->paginate(10);
 
         // Return the index view with products data
         return view('products.index', compact('products'));

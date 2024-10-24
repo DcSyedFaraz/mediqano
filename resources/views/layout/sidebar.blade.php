@@ -45,7 +45,7 @@
                     </g>
                 </svg>
             </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">mediqano</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -76,8 +76,8 @@
                 <div data-i18n="Basic">Products</div>
             </a>
         </li>
-        <li class="menu-item ">
-            <a class="menu-link" href="{{ route('logout') }}"
+        <li class="menu-item">
+            <a class="menu-link text-danger" href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Log Out</span>
