@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->text('custom_article_number')->nullable();   // Artikel-Nummer
             $table->text('article_number')->nullable();   // Artikel-Nummer
             $table->text('pzn')->nullable();              // PZN
+            $table->text('image')->nullable();
             $table->text('article_description_1')->nullable();  // Artikel-Bezeichnung 1
             $table->text('article_description_2')->nullable();  // Artikel-Bezeichnung 2
             $table->text('article_description_3')->nullable();  // Artikel-Bezeichnung 3
