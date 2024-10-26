@@ -39,6 +39,19 @@
                     <p class="card-text"><strong>Valid Until:</strong>
                         {{ $product->valid_until ? \Carbon\Carbon::parse($product->valid_until)->format('d.m.Y') : 'N/A' }}</p> --}}
                     <p class="card-text"><strong>GTIN:</strong> {{ $product->gtin ?? 'N/A' }}</p>
+
+                    @php
+                        // Define the path to the image
+                        $imagePath = public_path('product_picutres/' . $product->image);
+                    @endphp
+                    {{-- @dd($imagePath,file_exists($imagePath)) --}}
+                    @if ($product->image && file_exists($imagePath))
+                        <img src="{{ asset('product_picutres/' . $product->image) }}" alt="{{ $product->name }}"
+                            class="img-thumbnail w-25 mt-2">
+                    @else
+                        <p class="mt-2">No image available.</p>
+                    @endif
+
                     <!-- Add more fields as necessary -->
                 </div>
                 <div class="card-footer text-muted">

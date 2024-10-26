@@ -7,6 +7,7 @@ use App\Imports\ProductImport;
 use App\Models\Product;
 use DB;
 use Illuminate\Console\Command;
+use Log;
 use Maatwebsite\Excel\Excel;
 
 class ExcelImport extends Command
@@ -33,6 +34,9 @@ class ExcelImport extends Command
         $productFile = public_path('excel/PreislisteTest.xlsx');
         $imageFile = public_path('excel/Artikel-ListeTest.xlsx');
 
+        // $productFile = public_path('excel/Preisliste.xlsx');
+        // $imageFile = public_path('excel/Artikel-Liste 09-2024.xlsx');
+
         // Start a database transaction to ensure data integrity
         DB::beginTransaction();
 
@@ -54,12 +58,13 @@ class ExcelImport extends Command
 
             // Example of bulk updating using Eloquent's upsert (Laravel 8+)
             foreach ($images as $articleNumber => $imagePath) {
-                Product::updateOrCreate(
-                    ['article_number' => $articleNumber],
-                    ['image' => $imagePath]
-                );
-            }
+                $updated = Product::where('article_number', $articleNumber)
+                    ->update(['image' => $imagePath]);
 
+                if ($updated === 0) {
+                    Log::warning("No Product found with article_number: {$articleNumber}");
+                }
+            }
 
 
             $this->output->info('Products updated with images successfully.');
