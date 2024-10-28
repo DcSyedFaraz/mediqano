@@ -54,11 +54,7 @@ class ProductImport implements ToModel, WithHeadingRow, SkipsEmptyRows, WithVali
     public function model(array $row)
     {
 
-
-        // dump($row);
-        // Generate a unique article number
         $customArticleNumber = $this->generateCustomArticleNumber();
-        // dd($formattedRow['artikel_nummer']);  // This will print all the keys in $formattedRow
         return new Product([
             'article_number' => $row['artikel_nummer'],
             'custom_article_number' => $customArticleNumber, // Use the generated custom article number

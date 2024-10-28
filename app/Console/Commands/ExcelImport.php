@@ -46,19 +46,19 @@ class ExcelImport extends Command
             $this->output->comment('Importing images...');
             $imageImport = new ImageImport();
             $imageImport->withOutput($this->output)->import($imageFile);
-            $images = $imageImport->getImages();
-            $this->output->info('Images imported successfully.');
+            // $images = $imageImport->getImages();
+            // $this->output->info('Images imported successfully.');
 
-            // Update Products with Images
-            $this->output->comment('Updating products with images...');
+            // // Update Products with Images
+            // $this->output->comment('Updating products with images...');
 
-            // Example of bulk updating using Eloquent's upsert (Laravel 8+)
-            foreach ($images as $articleNumber => $imagePath) {
-                Product::updateOrCreate(
-                    ['article_number' => $articleNumber],
-                    ['image' => $imagePath]
-                );
-            }
+            // // Example of bulk updating using Eloquent's upsert (Laravel 8+)
+            // foreach ($images as $articleNumber => $imagePath) {
+            //     Product::updateOrCreate(
+            //         ['article_number' => $articleNumber],
+            //         ['image' => $imagePath]
+            //     );
+            // }
 
 
 
