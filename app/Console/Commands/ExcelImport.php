@@ -31,11 +31,11 @@ class ExcelImport extends Command
         $this->output->title('Starting import');
 
         // Define file paths
-        $productFile = public_path('excel/PreislisteTest.xlsx');
-        $imageFile = public_path('excel/Artikel-ListeTest.xlsx');
+        // $productFile = public_path('excel/PreislisteTest.xlsx');
+        // $imageFile = public_path('excel/Artikel-ListeTest.xlsx');
 
-        // $productFile = public_path('excel/Preisliste.xlsx');
-        // $imageFile = public_path('excel/Artikel-Liste 09-2024.xlsx');
+        $productFile = public_path('excel/Preisliste.xlsx');
+        $imageFile = public_path('excel/Artikel-Liste 09-2024.xlsx');
 
         // Start a database transaction to ensure data integrity
         DB::beginTransaction();

@@ -46,13 +46,36 @@
                     @endphp
                     {{-- @dd($imagePath,file_exists($imagePath)) --}}
                     @if ($product->image && file_exists($imagePath))
-                        <img src="{{ asset('product_picutres/' . $product->image) }}" alt="{{ $product->name }}"
-                            class="img-thumbnail w-25 mt-2">
+                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-thumbnail w-25 mt-2">
                     @else
                         <p class="mt-2">No image available.</p>
                     @endif
+                    <form action="{{ route('products.update', $product->id) }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="mb-3">
+                            <label for="categories" class="form-label">Assign Categories</label>
+                            <select class="form-select select2 @error('categories') is-invalid @enderror" id="categories"
+                                name="categories[]" multiple>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ in_array($category->id, old('categories', $productCategories)) ? 'selected' : '' }}>
+                                        {{ $category->en ?? $category->key }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('categories')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <small class="form-text text-muted">
+                                Hold down the Ctrl (Windows) or Command (Mac) button to select multiple categories.
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </form>
 
-                    <!-- Add more fields as necessary -->
                 </div>
                 <div class="card-footer text-muted">
                     <a href="{{ route('products.index') }}" class="btn btn-secondary">Back to Products</a>

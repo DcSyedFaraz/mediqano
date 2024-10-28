@@ -57,37 +57,35 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <a href="{{ route('dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-            </a>
-        </li>
+        <x-menu-item route="dashboard" icon="bx bx-home-circle" :active="request()->routeIs('dashboard')">
+            Dashboard
+        </x-menu-item>
 
-        <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">User</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
-            <a href="{{ route('products.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user-detail"></i>
-                <div data-i18n="Basic">Products</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a class="menu-link text-danger" href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="bx bx-power-off me-2"></i>
-                <span class="align-middle">Log Out</span>
-            </a>
+        <!-- User -->
+        <x-menu-item route="users.index" icon="bx bxs-user-detail" :active="request()->routeIs('users.*')">
+            User
+        </x-menu-item>
 
-            <!-- Hidden form to handle the POST request -->
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-        </li>
+        <!-- Products with Submenu -->
+        <x-menu-item icon="bx bxs-package" :active="request()->routeIs('products.*')" has-sub="true">
+            Products
+            <x-slot name="submenu">
+                <x-menu-item route="products.index" icon="bx bxs-box" :active="request()->routeIs(['products.index', 'products.show'])">
+                    Products
+                </x-menu-item>
+                <x-menu-item route="products.noimage.index" icon="bx bx-camera-off" :active="request()->routeIs(['products.noimage.index', 'products.noimage.show'])">
+                    Without Image
+                </x-menu-item>
+            </x-slot>
+        </x-menu-item>
 
+        <x-menu-item route="categories.index" icon="bx bxs-user-detail" :active="request()->routeIs('categories.*')">
+            Categories
+        </x-menu-item>
+        <!-- Log Out -->
+        <x-menu-item action="logout" icon="bx bx-power-off" class="text-danger">
+            Log Out
+        </x-menu-item>
     </ul>
+
 </aside>

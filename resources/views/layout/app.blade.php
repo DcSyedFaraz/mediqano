@@ -6,7 +6,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | mediqano - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard | Mediqano</title>
 
     <meta name="description" content="" />
 
@@ -36,7 +36,9 @@
 
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
-    <!-- Page CSS -->
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Helpers -->
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
@@ -57,6 +59,7 @@
 </head>
 
 <body>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -155,6 +158,38 @@
 
                     </div>
                 </nav>
+                @if (session('success'))
+                    <div class="bs-toast toast m-3 fade show bg-primary position-absolute top-0 end-0" role="alert"
+                        aria-live="assertive" aria-atomic="true" data-delay="2000">
+                        <div class="toast-header">
+                            <i class="bx bx-bell me-2"></i>
+                            <div class="me-auto fw-medium">Success</div>
+                            {{-- <small>11 mins ago</small> --}}
+                            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="bs-toast toast m-3 fade show bg-danger position-absolute top-0 end-0"
+                            role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                            <div class="toast-header">
+                                <i class="bx bx-bell me-2"></i>
+                                <div class="me-auto fw-medium">Success</div>
+                                {{-- <small>11 mins ago</small> --}}
+                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                {{ $error }}
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
 
                 @yield('content')
                 <!-- Footer -->
@@ -208,6 +243,10 @@
         $(function() {
             // $('#summernote').summernote();
             // $('#summernote1').summernote();
+            // In your Javascript (external .js resource or <script> tag)
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
 
             $("#example1").DataTable({
                 "responsive": false,
@@ -218,23 +257,23 @@
             });
 
         });
-        @if (session('success'))
-            toastr.success("{{ session('success') }}");
-        @endif
-        @if (session('status'))
-            toastr.success("{{ session('status') }}");
-        @endif
-        @if (session('error'))
-            toastr.error("{{ session('error') }}")
-        @endif
-        @if (session('info'))
-            toastr.info("{{ session('info') }}")
-        @endif
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                toastr.error("{{ $error }}")
-            @endforeach
-        @endif
+        // @if (session('success'))
+        //     toastr.success("{{ session('success') }}");
+        // @endif
+        // @if (session('status'))
+        //     toastr.success("{{ session('status') }}");
+        // @endif
+        // @if (session('error'))
+        //     toastr.error("{{ session('error') }}")
+        // @endif
+        // @if (session('info'))
+        //     toastr.info("{{ session('info') }}")
+        // @endif
+        // @if ($errors->any())
+        //     @foreach ($errors->all() as $error)
+        //         toastr.error("{{ $error }}")
+        //     @endforeach
+        // @endif
     </script>
 
 </body>
