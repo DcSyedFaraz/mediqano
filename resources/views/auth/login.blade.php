@@ -7,7 +7,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Login | {{ config('app.name') }}</title>
+    <title>Login | Mediqano</title>
 
     <meta name="description" content="" />
 
@@ -150,7 +150,7 @@
 
                         <p class="text-center">
                             <span>New on our platform?</span>
-                            <a href="auth-register-basic.html">
+                            <a href="#">
                                 <span>Create an account</span>
                             </a>
                         </p>
