@@ -79,7 +79,7 @@
             </x-slot>
         </x-menu-item>
 
-        <x-menu-item route="categories.index" icon="bx bxs-user-detail" :active="request()->routeIs('categories.*')">
+        <x-menu-item route="categories.index" icon="bx bxs-category" :active="request()->routeIs('categories.*')">
             Categories
         </x-menu-item>
         <!-- Log Out -->

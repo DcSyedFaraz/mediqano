@@ -1,5 +1,3 @@
-<!-- resources/views/categories/index.blade.php -->
-
 @extends('layout.app')
 
 @section('content')
@@ -70,16 +68,18 @@
                                     <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary btn-sm">
                                         Edit
                                     </a>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
-                                        class="d-inline-block"
-                                        onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        onclick="confirmDelete({{ $category->id }})">
+                                        Delete
+                                    </button>
+                                    <form id="delete-form-{{ $category->id }}"
+                                        action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                        class="d-inline-block" style="display: none;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            Delete
-                                        </button>
                                     </form>
                                 </td>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -90,4 +90,25 @@
             @endif
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        function confirmDelete(categoryId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    document.getElementById('delete-form-' + categoryId).submit();
+                }
+            });
+        }
+    </script>
 @endsection

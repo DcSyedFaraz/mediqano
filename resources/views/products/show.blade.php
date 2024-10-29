@@ -1,5 +1,3 @@
-<!-- resources/views/products/show.blade.php -->
-
 @extends('layout.app')
 
 @section('content')
@@ -8,7 +6,7 @@
 
             <h1 class="my-4">Product Details</h1>
 
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header">
                     {{ $product->article_description_1 }}
                 </div>
@@ -34,22 +32,21 @@
                         {{ $product->valid_from ?? 'N/A' }}</p>
                     <p class="card-text"><strong>Valid Until:</strong>
                         {{ $product->valid_until ?? 'N/A' }}</p>
-                    {{-- <p class="card-text"><strong>Valid From:</strong>
-                        {{ $product->valid_from ? \Carbon\Carbon::parse($product->valid_from)->format('d.m.Y') : 'N/A' }}</p>
-                    <p class="card-text"><strong>Valid Until:</strong>
-                        {{ $product->valid_until ? \Carbon\Carbon::parse($product->valid_until)->format('d.m.Y') : 'N/A' }}</p> --}}
                     <p class="card-text"><strong>GTIN:</strong> {{ $product->gtin ?? 'N/A' }}</p>
 
                     @php
                         // Define the path to the image
-                        $imagePath = public_path('product_picutres/' . $product->image);
+                        $imagePath = public_path('product_pictures/' . $product->image);
                     @endphp
                     {{-- @dd($imagePath,file_exists($imagePath)) --}}
                     @if ($product->image && file_exists($imagePath))
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-thumbnail w-25 mt-2">
+                        <img src="{{ asset('product_pictures/' . $product->image) }}"
+                            alt="{{ $product->article_description_1 }}" class="img-thumbnail w-25 mt-2">
                     @else
                         <p class="mt-2">No image available.</p>
                     @endif
+
+                    <!-- Assign Categories Form -->
                     <form action="{{ route('products.update', $product->id) }}" method="POST">
                         @method('PUT')
                         @csrf
@@ -60,7 +57,7 @@
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         {{ in_array($category->id, old('categories', $productCategories)) ? 'selected' : '' }}>
-                                        {{ $category->en ?? $category->key }}
+                                        {{ $category->key }}
                                     </option>
                                 @endforeach
                             </select>
@@ -77,10 +74,96 @@
                     </form>
 
                 </div>
+
+                <!-- Product Translations Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Product Translations
+                    </div>
+                    <div class="card-body table-responsive">
+                        @if ($product->translations->isNotEmpty())
+                            <table class="table table-bordered table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Language Code</th>
+                                        <th>Product Name</th>
+                                        <th>Description</th>
+                                        <th>Filter Words</th>
+                                        <th>HTML Description</th>
+                                        <th>META Description</th>
+                                        <th>KEYWORD Description</th>
+                                        <th>SEARCHWORDS Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($product->translations as $translation)
+                                        <tr>
+                                            <td>{{ $translation->LanguageCode }}</td>
+                                            <td>{{ $translation->ProductName }}</td>
+                                            <td>{{ $translation->Description }}</td>
+                                            <td>{{ $translation->FilterWords }}</td>
+                                            <td>{!! $translation->HTML_Description !!}</td>
+                                            <td>{{ $translation->META_Description }}</td>
+                                            <td>{{ $translation->KEYWORD_Description }}</td>
+                                            <td>{{ $translation->SEARCHWORDS_Description }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No product translations available.</p>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Category Translations Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Category Translations
+                    </div>
+                    <div class="card-body table-responsive">
+                        @if ($product->categoryTranslations->isNotEmpty())
+                            <table class="table table-bordered table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Language Code</th>
+                                        <th>Category Level 1</th>
+                                        <th>Category Level 2</th>
+                                        <th>Category Level 3</th>
+                                        <th>Category Level 4</th>
+                                        <th>Category Description</th>
+                                        <th>Category Keyword</th>
+                                        <th>Category Title</th>
+                                        <th>Category URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($product->categoryTranslations as $translation)
+                                        <tr>
+                                            <td>{{ $translation->CategoryLanguageCode }}</td>
+                                            <td>{{ $translation->CategoryLevel1 }}</td>
+                                            <td>{{ $translation->CategoryLevel2 ?? 'N/A' }}</td>
+                                            <td>{{ $translation->CategoryLevel3 ?? 'N/A' }}</td>
+                                            <td>{{ $translation->CategoryLevel4 ?? 'N/A' }}</td>
+                                            <td>{{ $translation->CategoryDescription }}</td>
+                                            <td>{{ $translation->CategoryKeyword }}</td>
+                                            <td>{{ $translation->CategoryTitle }}</td>
+                                            <td>{{ $translation->CategoryURL }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No category translations available.</p>
+                        @endif
+                    </div>
+                </div>
                 <div class="card-footer text-muted">
                     <a href="{{ route('products.index') }}" class="btn btn-secondary">Back to Products</a>
                 </div>
             </div>
+
+
         </div>
     </div>
 @endsection
