@@ -43,7 +43,7 @@ class ExcelImport extends Command
         try {
             // Import Products
             $this->output->comment('Importing products...');
-            // (new ProductImport)->withOutput($this->output)->import($productFile);
+            (new ProductImport)->withOutput($this->output)->import($productFile);
             $this->output->info('Products imported successfully.');
 
             // Import Images

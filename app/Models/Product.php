@@ -27,4 +27,8 @@ class Product extends Model
     {
         return $this->hasOne(UpdateDate::class, 'article_number', 'article_number');
     }
+    public function seo_field()
+    {
+        return $this->hasOne(SeoField::class, 'article_number', 'article_number');
+    }
 }

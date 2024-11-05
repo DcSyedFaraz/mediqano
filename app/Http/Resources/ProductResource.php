@@ -50,6 +50,12 @@ class ProductResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
+            'seo_field' =>
+                [
+                    "meta_title" => $this->seo_field?->meta_title ?? null,
+                    "meta_description" => $this->seo_field?->meta_description ?? null,
+                ],
+
             'FilterWordsDE' => $this->getTranslationValue('FilterWords', 'DE'),
             'FilterWordsEN' => $this->getTranslationValue('FilterWords', 'EN'),
             'FilterWordsFR' => $this->getTranslationValue('FilterWords', 'FR'),

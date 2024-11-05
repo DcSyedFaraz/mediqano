@@ -74,7 +74,21 @@
                     </form>
 
                 </div>
+                <div class="card">
+                    <div class="card-header">
+                        SEO fields
+                    </div>
+                    <div class="card-body table-responsive">
+                        @if ($product->seo_field)
+                            <p class="card-text"><strong>Meta Title:</strong> {{ $product->seo_field->meta_title }}</p>
+                            <p class="card-text"><strong>Meta Description:</strong>
+                                {{ $product->seo_field->meta_description }}</p>
+                        @else
+                            <p>No SEO fields available.</p>
+                        @endif
+                    </div>
 
+                </div>
                 <!-- Product Translations Section -->
                 <div class="card mb-4">
                     <div class="card-header">
