@@ -36,6 +36,13 @@ class ApiController extends Controller
                         'UpdateDateAPI' => now(),
                     ]
                 );
+                $product->seo_field()->updateOrCreate(
+                    ['article_number' => $product->article_number],
+                    [
+                        'meta_title' => $data['Product']['meta_title'],
+                        'meta_description' => $data['Product']['meta_description'],
+                    ]
+                );
 
 
 
