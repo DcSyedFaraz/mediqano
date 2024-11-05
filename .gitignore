@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/product_picutres
+/public/product_pictures
 /storage/*.key
 /vendor
 .env
