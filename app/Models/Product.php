@@ -9,7 +9,7 @@ class Product extends Model
     protected $guarded = [];
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset("product_picutres/{$this->image}") : null;
+        return $this->image ? asset("product_pictures/{$this->image}") : null;
     }
     public function categories()
     {
